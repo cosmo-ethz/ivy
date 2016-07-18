@@ -21,7 +21,7 @@ install:
   - travis_retry pip install -r requirements.txt
   
 # command to run tests, e.g. python setup.py test
-script: coverage run --source abcpmc setup.py test
+script: coverage run --source ivy setup.py test
 after_success:
     coveralls
   
