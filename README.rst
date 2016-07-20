@@ -8,6 +8,10 @@ Ivy workflow engine
 .. image:: https://coveralls.io/repos/cosmo-ethz/ivy/badge.svg
   		:target: https://coveralls.io/r/cosmo-ethz/ivy
 
+.. image:: https://readthedocs.org/projects/ivy/badge/?version=latest
+		:target: http://ivy.readthedocs.io/en/latest/?badge=latest
+		:alt: Documentation Status
+		
 Simple and flexible workflow engine
 
 The **ivy** package has been developed at ETH Zurich in the `Software Lab of the Cosmology Research Group <http://www.cosmology.ethz.ch/research/software-lab.html>`_ of the `ETH Institute of Astronomy <http://www.astro.ethz.ch>`_. 
