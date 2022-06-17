@@ -45,7 +45,10 @@ class SequentialBackend(object):
     def run(self, loop, mapPlugin=None):
         if mapPlugin is None: mapPlugin=SimpleMapPlugin(self.ctx)
         
-        return map(LoopWrapper(loop), mapPlugin.getWorkload())
+    loop_exe = []
+        for workload in mapPlugin.getWorkload():
+            loop_exe.append(LoopWrapper(loop)(workload))
+        return loop_exe
 
 class MultiprocessingBackend(object):
     """

@@ -72,7 +72,7 @@ class Loop(object):
     def __iter__(self):
         return self
     
-    def next(self):
+    def __next__(self):
         """
         Returns the next plugin. Allows for using a Loop as an iter
         """
@@ -90,7 +90,7 @@ class Loop(object):
                     plugin.ctx = self.ctx
                     return plugin
                     
-                if isinstance(plugin, basestring):
+                if isinstance(plugin, str):
                     self._currentPlugin = None
                     return self._instantiate(plugin)
             

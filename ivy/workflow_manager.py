@@ -52,10 +52,10 @@ class WorkflowManager(object):
     def _setup(self, argv):
         config = self._parseArgs(argv)
         
-        if not config.has_key(PLUGINS_KEY):
+        if PLUGINS_KEY not in config:
             raise InvalidAttributeException("plugins definition is missing")
         
-        if config.has_key(CONTEXT_PROVIDER_KEY):
+        if CONTEXT_PROVIDER_KEY in config
             def getContextProviderWrapper():
                 #todo load class not module
                 clazz = config[CONTEXT_PROVIDER_KEY]
