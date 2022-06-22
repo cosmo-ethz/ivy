@@ -54,7 +54,7 @@ def _usage():
     example:
     - ivy --size-x=100 --size-y=100 ufig.config.random
     """
-    print usage
+    print(usage)
     
 if __name__ == "__main__":
     _main(*sys.argv[1:])

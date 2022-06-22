@@ -75,14 +75,14 @@ class ParallelPluginCollection(BasePlugin):
         backendImpl = backend.create(self.ctx, force)
         
         mapPlugin = self.mapPlugin
-        if isinstance(self.mapPlugin, basestring):
+        if isinstance(self.mapPlugin, str):
             mapPlugin = PluginFactory.createInstance(mapPlugin, self.ctx)
         
         ctxList = backendImpl.run(self.pluginList, mapPlugin)
        
         if self.reducePlugin is not None:
             reducePlugin = self.reducePlugin
-            if isinstance(self.reducePlugin, basestring):
+            if isinstance(self.reducePlugin, str):
                 reducePlugin = PluginFactory.createInstance(reducePlugin, self.ctx)
             
             reducePlugin.reduce(ctxList)
