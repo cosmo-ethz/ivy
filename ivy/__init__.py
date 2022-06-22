@@ -4,7 +4,7 @@ __version__ = '0.1.0'
 __credits__ = 'ETH Zurich, Institute for Astronomy'
 
 #register custom reduce method for type MethodType
-import copyreg as copy_reg
+import copyreg
 import types
 def reduce_method(m):
     return (getattr, (m.__self__, m.__func__.__name__))
