@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import os
 import sys
 from setuptools.command.test import test as TestCommand
