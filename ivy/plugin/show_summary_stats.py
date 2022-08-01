@@ -55,7 +55,7 @@ class Plugin(BasePlugin):
     
     def _join_timings(self, timing):
         s = ""
-        if(len(timing.timings.values()[0])==1):
+        if(len(list(timing.timings.values())[0])==1):
             s+= "{0!s:30}: {1:>7.3f} s".format(timing.name, timing.duration)
         else:    
             summary_list = []
