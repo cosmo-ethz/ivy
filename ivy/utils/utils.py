@@ -17,8 +17,6 @@ Created on Mar 5, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
-
 TYPE_MAP = {
     'bool': lambda x: boolify(x),
     'int': lambda x: int(x),
@@ -28,36 +26,40 @@ TYPE_MAP = {
     'unicode': lambda x: x,
     'list': lambda x: x.split(','),
     'NoneType': lambda x: inferType(x)
-    
+
 }
+
 
 def boolify(s):
     if s == 'True' or s == 'true':
-            return True
+        return True
     if s == 'False' or s == 'false':
-            return False
+        return False
     raise ValueError('Not Boolean Value!')
 
+
 def listify(s):
-    if(s.count(",")<=0):
+    if (s.count(",") <= 0):
         raise ValueError()
-    
+
     x = s.split(",")
     l = []
     for e in x:
         l.append(inferType(e))
     return l
 
+
 def inferType(var):
     '''guesses the str representation of the variables type'''
-    var = str(var) #important if the parameters aren't strings...
-    for caster in (boolify, int, long, float, listify):
-            try:
-                    return caster(var)
-            except ValueError:
-                    pass
+    var = str(var)  # important if the parameters aren't strings...
+    for caster in (boolify, int, float, listify):
+        try:
+            return caster(var)
+        except ValueError:
+            pass
     return var
-    
+
+
 class Enum(frozenset):
     """
     A generic enumeration class.  Inspired by:
@@ -90,18 +92,22 @@ class Enum(frozenset):
       DOG
       CAT
     """
+
     def __new__(cls, *args):
         return frozenset.__new__(cls, args)
+
     def __getattr__(self, name):
-            if name in self:
-                    return name
-            else:
-                    raise AttributeError("No '%s' in enumeration '%s'"
-                                         % (name, self.__class__.__name__))
+        if name in self:
+            return name
+        else:
+            raise AttributeError("No '%s' in enumeration '%s'"
+                                 % (name, self.__class__.__name__))
+
     def __setattr__(self, name, value):
-            raise SyntaxError("Cannot assign enumeration values.")
+        raise SyntaxError("Cannot assign enumeration values.")
+
     def __delattr__(self, name):
-            raise SyntaxError("Cannot delete enumeration values.")
+        raise SyntaxError("Cannot delete enumeration values.")
 
 
 class ListIter(object):
@@ -110,18 +116,18 @@ class ListIter(object):
     
     :param list: the list over which should be iterated
     """
-    
+
     def __init__(self, list):
         self.list = list
         self.idx = 0
-        
+
     def __iter__(self):
         return self
-    
-    def next(self):
-        if(self.idx < len(self.list)):
+
+    def __next__(self):
+        if (self.idx < len(self.list)):
             item = self.list[self.idx]
             self.idx += 1
             return item
-        
+
         raise StopIteration
