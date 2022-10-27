@@ -3,18 +3,22 @@ __email__ = 'jakeret@phys.ethz.ch'
 __version__ = '0.1.0'
 __credits__ = 'ETH Zurich, Institute for Astronomy'
 
-#register custom reduce method for type MethodType
-import copy_reg
+# register custom reduce method for type MethodType
+import copyreg
 import types
+
+
 def reduce_method(m):
     return (getattr, (m.__self__, m.__func__.__name__))
 
-copy_reg.pickle(types.MethodType, reduce_method)
+
+copyreg.pickle(types.MethodType, reduce_method)
 
 from ivy import context
 from ivy.workflow_manager import WorkflowManager
 
 from ivy.workflow_manager import loadConfigs
+
 
 def execute(args):
     """

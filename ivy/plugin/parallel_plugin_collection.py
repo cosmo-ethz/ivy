@@ -17,13 +17,12 @@ Created on Mar 18, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import
-from ivy.plugin.base_plugin import BasePlugin
-from ivy.loop import Loop
-from ivy import context
-from ivy.plugin.plugin_factory import PluginFactory
-from ivy.exceptions.exceptions import InvalidAttributeException
 from ivy import backend
+from ivy import context
+from ivy.exceptions.exceptions import InvalidAttributeException
+from ivy.loop import Loop
+from ivy.plugin.base_plugin import BasePlugin
+from ivy.plugin.plugin_factory import PluginFactory
 
 
 class ParallelPluginCollection(BasePlugin):
@@ -39,7 +38,6 @@ class ParallelPluginCollection(BasePlugin):
     :param ctx: (optional) 
     """
 
-
     def __init__(self, pluginList, mapPlugin, reducePlugin=None, ctx=None, parallel=True):
 
         '''
@@ -50,39 +48,38 @@ class ParallelPluginCollection(BasePlugin):
         self.ctx = ctx
 
         super(ParallelPluginCollection, self).__init__(self.ctx)
-        
+
         if not isinstance(pluginList, Loop):
             pluginList = Loop(pluginList)
-            
+
         self.pluginList = pluginList
 
         if mapPlugin is None:
             raise InvalidAttributeException("No map plugin provided")
-        
+
         self.mapPlugin = mapPlugin
         self.reducePlugin = reducePlugin
         self.parallel = parallel
-        
 
     def __str__(self):
         return "ParallelPluginCollection"
-    
+
     def __call__(self):
         force = None
         if not self.parallel:
             force = "sequential"
-            
+
         backendImpl = backend.create(self.ctx, force)
-        
+
         mapPlugin = self.mapPlugin
-        if isinstance(self.mapPlugin, basestring):
+        if isinstance(self.mapPlugin, str):
             mapPlugin = PluginFactory.createInstance(mapPlugin, self.ctx)
-        
+
         ctxList = backendImpl.run(self.pluginList, mapPlugin)
-       
+
         if self.reducePlugin is not None:
             reducePlugin = self.reducePlugin
-            if isinstance(self.reducePlugin, basestring):
+            if isinstance(self.reducePlugin, str):
                 reducePlugin = PluginFactory.createInstance(reducePlugin, self.ctx)
-            
+
             reducePlugin.reduce(ctxList)
